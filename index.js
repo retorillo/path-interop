@@ -10,22 +10,14 @@ class PathInterop {
     this.windowsEnvToLinuxEnv = { USERPROFILE: 'HOME' };
     this.driveLetterConverter = letter => { return letter + ':' };
   }
-  replaceLinuxEnv(path, cb) {
-    return path.replace(/^~\//, () => { return cb('HOME') + '/'; })
-      .replace(/\$([_a-z0-9]+)/ig, (m, v)=>{ return cb(v); })
-      .replace(/\$\{([_a-z0-9]+)\}/ig, (m, v) => { return cb(v); });
-  }
-  replaceWindowsEnv(path, cb){
-    return path.replace(/%([_a-z0-9]+)%/ig, (m, v) => { return cb(v); });
-  }
   linuxToWindows(path, expand) {
-    return this.replaceLinuxEnv(path, v => {
+    return replaceLinuxEnv(path, v => {
         var e = this.linuxEnvToWindowsEnv[v] ? this.linuxEnvToWindowsEnv[v] : v;
         return expand ? this.env(e) : `%${e}%`;
       }).replace(/[\/]/g, '\\');
   }
   windowsToLinux(path, expand) {
-    return this.replaceWindowsEnv(path, v => {
+    return replaceWindowsEnv(path, v => {
         var e = this.windowsEnvToLinuxEnv[v] ? this.windowsEnvToLinuxEnv[v] : v;
         return expand ? this.env(e) : `\${${e}}`;
       }).replace(/\${([_a-z0-9]+)}(?![_a-z0-9])/ig, (m, v)=> { return `$${v}`})
@@ -65,5 +57,12 @@ class PathInterop {
     return pi;
   }
 }
-
+function replaceLinuxEnv(path, cb) {
+  return path.replace(/^~\//, () => { return cb('HOME') + '/'; })
+    .replace(/\$([_a-z0-9]+)/ig, (m, v)=>{ return cb(v); })
+    .replace(/\$\{([_a-z0-9]+)\}/ig, (m, v) => { return cb(v); });
+}
+function replaceWindowsEnv(path, cb){
+  return path.replace(/%([_a-z0-9]+)%/ig, (m, v) => { return cb(v); });
+}
 module.exports = new PathInterop();

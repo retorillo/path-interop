@@ -5,7 +5,7 @@
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 Provides path format conversion between Windows and Linux including path
-seperator conversion and enviroment variable expansion.
+seperator conversion and environment variable expansion.
 
 Allows you to add Linux path format interoperability into your Windows/Linux
 cross-platform apps.
@@ -29,48 +29,48 @@ const interop2 = interop1.clone();
 
 ## Functions
 
-### windowsToLinux(win, expand)
+### windowsToLinux(path, expand)
 
 Converts path format from Windows to Linux with/without environment variable
 expansion.
 
-Specify `true` for `expand` in order to expand enviroment variables like `%VAR%`.
+Specify `true` for `expand` in order to expand environment variables like `%VAR%`.
 
 Otherwise, variable names are preserved. For example,
-`windowsToLinux('%USERPROFILE%/')` will return `~/` without expansion.
+`windowsToLinux('%USERPROFILE%/')` will return `'~/'` without expansion.
 
 **NOTE:** Windows Drive letter and colon (`C:`) is not convertible to Linux
 format. Therefore, by default it is preserved. For exmaple,
-`windowsToLinux('C:\\')` returns `C:/`.  You can change this behavior by using
+`windowsToLinux('C:\\')` returns `'C:/'`. You can change this behavior by using
 [driveLetterConverter](#driveletterconverter) option.
 
-### linuxToWindows(linux, expand)
+### linuxToWindows(path, expand)
 
 Converts path format from Linux to Windows with/without environment variable
 expansion.
 
-Specify `true` for `expand` in order to expand enviroment variables like `~/`,
+Specify `true` for `expand` in order to expand environment variables like `~/`,
 `$VAR` or `${VAR}`. 
 
 Otherwise, variable names are preserved. For example, `linuxToWindows('~/')`
-will return '%USERPROFILE%/' without expansion.
+will return `'%USERPROFILE%/'` without expansion.
 
 **NOTE:** `~otherUserName/` is unsupported
 
-### toLinux(any, expand)
+### toLinux(path, expand)
 
 Forcely converts path format to Linux with/without environment variable expansion.
 
-Equivalent to `windowsToLinux(linuxToWindows(any), expand)`.
+Equivalent to `windowsToLinux(linuxToWindows(path), expand)`.
 
-### toWindows(any, expand)
+### toWindows(path, expand)
 
 Forcely converts path format to Windows with/without environment variable
 expansion.
 
-Equivalent to `linuxToWindows(windowsToLinux(any), expand)`.
+Equivalent to `linuxToWindows(windowsToLinux(path), expand)`.
 
-### toSystem(any, expand)
+### toSystem(path, expand)
 
 Forcely converts path format to current platform. If `process.platform` is
 `win32` internally calls `toWindows`, otherwise calls `toLinux`.
@@ -148,7 +148,7 @@ PathInterop.windowsEnvToLinuxEnv = { WINENV: 'LINUXENV' };
 
 ## clone
 
-Creates a new PathInterop that is a copy of the current instance.
+Creates a new object that is a copy of the current instance.
 
 ```javascript
 var p1 = require('path-interop');
