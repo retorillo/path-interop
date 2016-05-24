@@ -1,0 +1,29 @@
+{
+  "name": "path-interop",
+  "version": "1.0.0",
+  "description": "Provides path format conversion between Windows and Linux including path seperator conversion and enviroment variable expansion.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/retorillo/path-interop.git"
+  },
+  "keywords": [
+    "path",
+    "convert",
+    "windows",
+    "linux",
+    "interop"
+  ],
+  "author": "retorillo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/retorillo/path-interop/issues"
+  },
+  "homepage": "https://github.com/retorillo/path-interop#readme"
+}
