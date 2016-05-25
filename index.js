@@ -31,11 +31,11 @@ class PathInterop {
   toWindows(path, expand) {
     return this.linuxToWindows(this.windowsToLinux(path), expand);
   }
-  toSystem(path) {
+  toSystem(path, expand) {
     if (process.platform === 'win32')
-      return toWindows(path);
+      return this.toWindows(path, expand);
     else
-      return toLinux(path);
+      return this.toLinux(path, expand);
   }
   env(name) {
     if (this.caseInsensitivePlatforms.indexOf(process.platform) !== -1){

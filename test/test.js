@@ -104,6 +104,24 @@ const testSources = [
     input: ['$HOME/${COMPUTERNAME}_006/', true],
     expected: `${linuxHome}/${computername}_006/`,
   },
+
+
+  // toSystem
+  {
+    action: interop.toSystem,
+    desc: process.platform === 'win32'
+      ? 'Linux => System(Windows)'
+      : 'Windows => System(Linux)',
+    input: [ process.platform === 'win32'
+      ? '$HOME/${COMPUTERNAME}'
+      : '%USERPROFILE%\\%COMPUTERNAME%'
+      , true],
+    expected: process.platform === 'win32'
+      ? `${windowsHome}\\${computername}`
+      : `${linuxHome}/${computername}`,
+  },
+
+  // Options
   {
     desc: 'Custom Drive Letter Conversion (For MSYS2)',
     action: (input) => { 

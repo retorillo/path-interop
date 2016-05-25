@@ -1,6 +1,6 @@
 {
   "name": "path-interop",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Provides path format conversion between Windows and Linux including path seperator conversion and environment variable expansion.",
   "main": "index.js",
   "directories": {
